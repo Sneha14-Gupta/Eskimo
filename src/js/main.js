@@ -17,19 +17,36 @@ const dataBreedList = document.querySelector("#data-breed-list");
 
 // MARK: fetch
 async function getDogsList() {
-  try {
-    const res = await fetch(`${BASE_URL}breeds/list/all`);
-    const data = await res.json();
-    return data.message;
-  } catch (err) {
-    console.error("Error Occured");
+    let breeds = JSON.parse(localStorage.getItem("breeds"));
+  
+    if (!breeds) {
+      try {
+        const res = await fetch(`${BASE_URL}breeds/list/all`);
+        const data = await res.json();
+        localStorage.setItem("breeds", JSON.stringify(data.message));
+        breeds = data.message;
+      } catch (err) {
+        console.error("Error occured", err);
+      }
+    }
+  
+    return breeds;
   }
-  //    return fetch(`${BASE_URL}breeds/list/all`)
-  //     .then((res) => res.json())
-  //     .then((data) =>data.message)
-  //     .catch((err) => console.error("error", err))
-  //     ;
-}
+// async function getDogsList() {
+
+//   try {
+//     const res = await fetch(`${BASE_URL}breeds/list/all`);
+//     const data = await res.json();
+//     return data.message;
+//   } catch (err) {
+//     console.error("Error Occured");
+//   }
+//   //    return fetch(`${BASE_URL}breeds/list/all`)
+//   //     .then((res) => res.json())
+//   //     .then((data) =>data.message)
+//   //     .catch((err) => console.error("error", err))
+//   //     ;
+// }
 //
 async function getDogsImg(breed) {
   try {
