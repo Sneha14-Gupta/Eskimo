@@ -47,9 +47,11 @@ async function getDogsImg(breed) {
 
 async function renderSelect() {
   const dogList = await getDogsList();
+  const fragment=document.createDocumentFragment()
   Object.keys(dogList).forEach((dogName) => {
-    dataBreedList.appendChild(Option(dogName));
+    fragment.appendChild(Option(dogName));
   });
+  dataBreedList.append(fragment);
   //   getDogsList().then((breedList) => {
   //     for (let breed in breedList) {
   //       dataBreedList.appendChild(Option(breed));
@@ -63,18 +65,20 @@ async function renderSelect() {
 renderSelect();
 
 async function renderImage(breed) {
-    imgEl.src=`loading_img.gif`
+  imgEl.src = `loading_img.gif`;
   const dogImg = await getDogsImg(breed);
   imgEl.src = dogImg;
-  imgEl.alt=breed;
+  imgEl.alt = breed;
   //   getDogsImg(breed).then((data) => {
   //     imgEl.src = data;
   //   });
 }
-renderImage("boxer");
 
-
-dataBreedList.addEventListener("change",async (e) => {
-  const currentValue=e.target.value;
+dataBreedList.addEventListener("change", async (e) => {
+  const currentValue = e.target.value;
   renderImage(currentValue);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderSelect();
 });
