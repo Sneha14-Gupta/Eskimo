@@ -72,6 +72,7 @@ async function renderImage(breed) {
 renderImage("boxer");
 
 
-dataBreedList.addEventListener("change", () => {
-  console.log("hey");
+dataBreedList.addEventListener("change",async (e) => {
+  const currentValue=e.target.value;
+  renderImage(currentValue);
 });
