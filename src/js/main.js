@@ -63,8 +63,10 @@ async function renderSelect() {
 renderSelect();
 
 async function renderImage(breed) {
+    imgEl.src=`loading_img.gif`
   const dogImg = await getDogsImg(breed);
   imgEl.src = dogImg;
+  imgEl.alt=breed;
   //   getDogsImg(breed).then((data) => {
   //     imgEl.src = data;
   //   });
